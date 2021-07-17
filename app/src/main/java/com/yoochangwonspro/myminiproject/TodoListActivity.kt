@@ -31,7 +31,16 @@ class TodoListActivity : AppCompatActivity() {
             )
         }
 
+        val adapter = TodoListAdapter(model.todoListData)
+        binding.todolistRecyclerView.apply {
+            this.adapter = adapter
+            layoutManager = LinearLayoutManager(this@TodoListActivity)
+        }
 
+        binding.todolistInsertBtn.setOnClickListener {
+            model.addTodoList(TodoList(binding.todolistEditTextView.text.toString()))
+            adapter.notifyDataSetChanged()
+        }
 
     }
 }
