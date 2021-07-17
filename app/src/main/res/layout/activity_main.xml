@@ -1,18 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#A683E4"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/main_my_mini_project"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="120dp"
+        android:gravity="center"
+        android:text="MyMiNiProject"
+        android:textColor="#ffffff"
+        android:textSize="50dp"
+        android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/main_todo_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="30dp"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:text="TodoListPage"
+        android:textColor="#A683E4"
+        android:textSize="45dp" />
+
+    <TextView
+        android:id="@+id/main_out_stagram_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="30dp"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:text="OutStagramPage"
+        android:textColor="#A683E4"
+        android:textSize="45dp" />
+
+    <TextView
+        android:id="@+id/main_video_player_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="30dp"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:text="VideoPlayerPage"
+        android:textColor="#A683E4"
+        android:textSize="45dp" />
+
+    <TextView
+        android:id="@+id/main_music_player_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:text="MusicPlayerPage"
+        android:textColor="#A683E4"
+        android:textSize="45dp" />
+
+</LinearLayout>
