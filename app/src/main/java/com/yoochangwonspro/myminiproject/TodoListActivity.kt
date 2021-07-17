@@ -3,7 +3,13 @@ package com.yoochangwonspro.myminiproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.RecyclerView
 import com.yoochangwonspro.myminiproject.databinding.ActivityTodoListBinding
+import com.yoochangwonspro.myminiproject.databinding.TodolistItemViewBinding
 
 class TodoListActivity : AppCompatActivity() {
 
@@ -21,4 +27,26 @@ class TodoListActivity : AppCompatActivity() {
             )
         }
     }
+}
+
+data class TodoList(val text: String, var boolean: Boolean = false)
+
+class TodoListAdapter(
+    private val dataSet: ArrayList<TodoList>
+) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
+
+    class ViewHolder(val itemViewBinding: TodolistItemViewBinding) : RecyclerView.ViewHolder(itemViewBinding.root)
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.todolist_item_view, viewGroup, false)
+
+        return ViewHolder(TodolistItemViewBinding.bind(view))
+    }
+
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        viewHolder.itemViewBinding.todolistItemTextView.text = dataSet[position].text
+    }
+
+    override fun getItemCount() = dataSet.size
 }
