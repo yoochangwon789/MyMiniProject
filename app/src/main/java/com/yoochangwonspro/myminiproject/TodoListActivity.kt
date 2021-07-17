@@ -45,7 +45,7 @@ class TodoListActivity : AppCompatActivity() {
     }
 }
 
-data class TodoList(val text: String, var boolean: Boolean = false)
+data class TodoList(val text: String, var isDone: Boolean = false)
 
 class TodoListAdapter(
     private val dataSet: ArrayList<TodoList>
@@ -73,5 +73,9 @@ class TodoListViewModel: ViewModel() {
 
     fun addTodoList(todoList: TodoList) {
         todoListData.add(todoList)
+    }
+
+    fun selectTodoList(todoList: TodoList) {
+        todoList.isDone = !todoList.isDone
     }
 }
