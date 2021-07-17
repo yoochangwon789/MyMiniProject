@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yoochangwonspro.myminiproject.databinding.ActivityTodoListBinding
 import com.yoochangwonspro.myminiproject.databinding.TodolistItemViewBinding
@@ -21,11 +23,16 @@ class TodoListActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        val model: TodoListViewModel by viewModels()
+
         binding.todolistMainBtn.setOnClickListener {
             startActivity(
                 Intent(this, MainActivity::class.java)
             )
         }
+
+
+
     }
 }
 
@@ -49,4 +56,13 @@ class TodoListAdapter(
     }
 
     override fun getItemCount() = dataSet.size
+}
+
+class TodoListViewModel: ViewModel() {
+
+    val todoListData = ArrayList<TodoList>()
+
+    fun addTodoList(todoList: TodoList) {
+        todoListData.add(todoList)
+    }
 }
