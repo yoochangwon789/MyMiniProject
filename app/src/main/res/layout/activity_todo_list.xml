@@ -1,11 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/mini_purple"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".TodoListActivity">
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/todolist_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/todolist_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="TodoList"
+            android:textColor="#ffffff"
+            android:textSize="40dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <ImageView
+                android:id="@+id/todolist_main_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_baseline_home_24" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/todolist_separation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/todolist_home"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/todolist_edit_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="할 일을 입력해 주세요!!"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+
+            <Button
+                android:id="@+id/todolist_insert_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ffffff"
+                android:text="추가"
+                android:textColor="@color/mini_purple"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/todolist_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/todolist_separation"
+        tools:listitem="@layout/todolist_item_view" />
+
+</RelativeLayout>
