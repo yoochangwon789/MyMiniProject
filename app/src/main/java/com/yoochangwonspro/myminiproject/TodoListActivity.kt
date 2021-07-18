@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,33 +35,33 @@ class TodoListActivity : AppCompatActivity() {
             )
         }
 
-        val adapter = TodoListAdapter(
-            model.todoListData,
-            toggleButton = {
-                model.selectTodoList(it)
-                binding.todolistRecyclerView.adapter?.notifyDataSetChanged()
-            },
-            deleteButton = {
-                model.deleteTodoList(it)
-                binding.todolistRecyclerView.adapter?.notifyDataSetChanged()
-            }
-        )
         binding.todolistRecyclerView.apply {
-            this.adapter = adapter
+            adapter = TodoListAdapter(
+                model.todoListData,
+                toggleButton = {
+                    model.selectTodoList(it)
+                },
+                deleteButton = {
+                    model.deleteTodoList(it)
+                }
+            )
             layoutManager = LinearLayoutManager(this@TodoListActivity)
         }
 
         binding.todolistInsertBtn.setOnClickListener {
             model.addTodoList(TodoList(binding.todolistEditTextView.text.toString()))
-            adapter.notifyDataSetChanged()
         }
+
+        model.liveData.observe(this, Observer {
+            (binding.todolistRecyclerView.adapter as TodoListAdapter).setData(it)
+        })
     }
 }
 
 data class TodoList(val text: String, var isDone: Boolean = false)
 
 class TodoListAdapter(
-    private val dataSet: ArrayList<TodoList>,
+    private var dataSet: ArrayList<TodoList>,
     private val toggleButton: (todo: TodoList) -> Unit,
     private val deleteButton: (todo: TodoList) -> Unit
 ) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
@@ -99,22 +101,31 @@ class TodoListAdapter(
         }
     }
 
+    fun setData(newData : ArrayList<TodoList>) {
+        dataSet = newData
+        notifyDataSetChanged()
+    }
+
     override fun getItemCount() = dataSet.size
 }
 
 class TodoListViewModel : ViewModel() {
 
+    val liveData = MutableLiveData<ArrayList<TodoList>>()
     val todoListData = ArrayList<TodoList>()
 
     fun addTodoList(todoList: TodoList) {
         todoListData.add(todoList)
+        liveData.value = todoListData
     }
 
     fun selectTodoList(todoList: TodoList) {
         todoList.isDone = !todoList.isDone
+        liveData.value = todoListData
     }
 
     fun deleteTodoList(todoList: TodoList) {
         todoListData.remove(todoList)
+        liveData.value = todoListData
     }
 }
