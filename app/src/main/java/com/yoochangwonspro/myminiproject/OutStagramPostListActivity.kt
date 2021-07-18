@@ -1,6 +1,7 @@
 package com.yoochangwonspro.myminiproject
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,6 +21,12 @@ class OutStagramPostListActivity : AppCompatActivity() {
         binding = ActivityOutStagramPostListBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        binding.postListHomeBtn.setOnClickListener {
+            startActivity(
+                Intent(this, MainActivity::class.java)
+            )
+        }
     }
 }
 
