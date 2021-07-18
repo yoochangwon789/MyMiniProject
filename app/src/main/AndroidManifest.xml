@@ -14,8 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMiniProject">
-        <activity android:name=".OutStagramLoginActivity"></activity>
-        <activity android:name=".OutStagramSignupActivity"></activity>
+        <activity android:name=".OutStagramPostListActivity"></activity>
+        <activity android:name=".OutStagramLoginActivity" />
+        <activity android:name=".OutStagramSignupActivity" />
         <activity android:name=".TodoListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

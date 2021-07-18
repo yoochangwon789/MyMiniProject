@@ -31,24 +31,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
-        android:background="null"
         android:gravity="center"
         android:hint="아이디를 입력해 주세요"
         android:textColor="#ffffff"
-        android:textColorHint="#ffffff"
-        android:textSize="20dp" />
+        android:textColorHint="#ffffff" />
 
     <EditText
         android:id="@+id/out_stagram_password_text_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:background="null"
         android:gravity="center"
         android:hint="비밀번호를 입력해 주세요"
         android:textColor="#ffffff"
-        android:textColorHint="#ffffff"
-        android:textSize="20dp" />
+        android:textColorHint="#ffffff" />
 
     <TextView
         android:id="@+id/out_stagram_signup_btn"
