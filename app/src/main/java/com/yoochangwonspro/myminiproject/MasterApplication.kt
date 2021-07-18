@@ -2,6 +2,7 @@ package com.yoochangwonspro.myminiproject
 
 import android.app.Application
 import android.content.Context
+import com.facebook.stetho.Stetho
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import okhttp3.Interceptor
@@ -15,6 +16,9 @@ class MasterApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        Stetho.initializeWithDefaults(this)
+        createRetrofit()
     }
 
     fun createRetrofit() {

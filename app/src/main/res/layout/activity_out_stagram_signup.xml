@@ -37,7 +37,7 @@
         android:textSize="25dp" />
 
     <EditText
-        android:id="@+id/out_stagrama_password_text_one"
+        android:id="@+id/out_stagram_password_text_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
