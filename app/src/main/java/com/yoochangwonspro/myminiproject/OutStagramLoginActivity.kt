@@ -26,5 +26,8 @@ class OutStagramLoginActivity : AppCompatActivity() {
                 Intent(this, OutStagramSignupActivity::class.java)
             )
         }
+
+
     }
+
 }
