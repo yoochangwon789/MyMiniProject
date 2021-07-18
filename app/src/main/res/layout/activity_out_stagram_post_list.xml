@@ -59,7 +59,7 @@
             android:layout_weight="1"
             android:background="#ffffff"
             android:gravity="center"
-            android:text="전체"
+            android:text="ALL"
             android:textColor="#866EB1"
             android:textSize="30dp"
             android:textStyle="bold" />
@@ -71,7 +71,7 @@
             android:layout_weight="1"
             android:background="#6F47B6"
             android:gravity="center"
-            android:text="본인"
+            android:text="MY"
             android:textColor="#ffffff"
             android:textSize="30dp"
             android:textStyle="bold" />
@@ -83,7 +83,7 @@
             android:layout_weight="1"
             android:background="#ffffff"
             android:gravity="center"
-            android:text="업로드"
+            android:text="UP"
             android:textColor="#866EB1"
             android:textSize="30dp"
             android:textStyle="bold" />
@@ -95,7 +95,7 @@
             android:layout_weight="1"
             android:background="#6F47B6"
             android:gravity="center"
-            android:text="정보"
+            android:text="INFO"
             android:textColor="#ffffff"
             android:textSize="30dp"
             android:textStyle="bold" />
