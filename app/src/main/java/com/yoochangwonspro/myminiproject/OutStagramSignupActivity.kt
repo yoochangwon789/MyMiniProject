@@ -25,6 +25,12 @@ class OutStagramSignupActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        initView()
+
+        binding.outStagramSignupBtn.setOnClickListener {
+            signUpRetrofit()
+        }
+
     }
 
     fun initView() {
@@ -35,10 +41,7 @@ class OutStagramSignupActivity : AppCompatActivity() {
 
     fun signUpRetrofit() {
         (application as MasterApplication).service.register(
-            idText,
-            passwordOne,
-            passwordTwo
-        ).enqueue(object : Callback<User> {
+            getIdText(), getPasswordOne(), getPasswordTwo()).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
                     val user = response.body()
@@ -67,4 +70,17 @@ class OutStagramSignupActivity : AppCompatActivity() {
         editor.putString("login_sp", token)
         editor.apply()
     }
+
+    fun getIdText(): String {
+        return idText.text.toString()
+    }
+
+    fun getPasswordOne(): String {
+        return passwordOne.text.toString()
+    }
+
+    fun getPasswordTwo(): String {
+        return passwordTwo.text.toString()
+    }
+
 }
