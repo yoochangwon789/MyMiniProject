@@ -33,7 +33,12 @@ class TodoListActivity : AppCompatActivity() {
             )
         }
 
-        val adapter = TodoListAdapter(model.todoListData)
+        val adapter = TodoListAdapter(
+            model.todoListData,
+            toggleButton = {
+                model.selectTodoList(it)
+                binding.todolistRecyclerView.adapter?.notifyDataSetChanged()
+            })
         binding.todolistRecyclerView.apply {
             this.adapter = adapter
             layoutManager = LinearLayoutManager(this@TodoListActivity)
