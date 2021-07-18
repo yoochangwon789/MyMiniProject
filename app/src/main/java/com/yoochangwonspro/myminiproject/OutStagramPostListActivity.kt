@@ -7,10 +7,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yoochangwonspro.myminiproject.databinding.ActivityOutStagramPostListBinding
 import com.yoochangwonspro.myminiproject.databinding.PostListItemViewBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class OutStagramPostListActivity : AppCompatActivity() {
 
@@ -27,6 +31,27 @@ class OutStagramPostListActivity : AppCompatActivity() {
                 Intent(this, MainActivity::class.java)
             )
         }
+
+        (application as MasterApplication).service.getAllPosts().enqueue(
+            object : Callback<ArrayList<Post>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Post>>,
+                    response: Response<ArrayList<Post>>
+                ) {
+                    if (response.isSuccessful) {
+                        val postList = response.body()
+
+                        binding.postListRecyclerView.apply {
+                            adapter = PostListAdapter(postList!!, this@OutStagramPostListActivity)
+                            layoutManager = LinearLayoutManager(this@OutStagramPostListActivity)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
+                }
+            }
+        )
     }
 }
 
@@ -47,7 +72,7 @@ class PostListAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemViewBinding.postListOwnerItem.text = dataSet[position].owner
-        viewHolder.itemViewBinding.postListOwnerItem.text = dataSet[position].content
+        viewHolder.itemViewBinding.postListContentItem.text = dataSet[position].content
         Glide.with(activity)
             .load(dataSet[position].image)
             .into(viewHolder.itemViewBinding.postListImgItem)
