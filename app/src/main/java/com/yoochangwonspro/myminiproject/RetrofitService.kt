@@ -3,6 +3,7 @@ package com.yoochangwonspro.myminiproject
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface RetrofitService {
@@ -21,4 +22,7 @@ interface RetrofitService {
         @Field("username")username: String,
         @Field("password")password1: String
     ) : Call<User>
+
+    @GET("/instagram/post/list/all/")
+    fun getAllPosts(): Call<ArrayList<Post>>
 }
