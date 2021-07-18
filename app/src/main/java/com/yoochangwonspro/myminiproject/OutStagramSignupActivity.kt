@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
 import android.widget.Toast
 import com.yoochangwonspro.myminiproject.databinding.ActivityOutStagramSignupBinding
 import retrofit2.Call
@@ -14,6 +15,10 @@ class OutStagramSignupActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOutStagramSignupBinding
 
+    private lateinit var idText: EditText
+    private lateinit var passwordOne: EditText
+    private lateinit var passwordTwo: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOutStagramSignupBinding.inflate(layoutInflater)
@@ -22,7 +27,11 @@ class OutStagramSignupActivity : AppCompatActivity() {
 
     }
 
-
+    fun initView() {
+        idText = binding.outStagramIdText
+        passwordOne = binding.outStagramPasswordTextOne
+        passwordTwo = binding.outStagramPasswordTextTwo
+    }
 
     fun signUpRetrofit() {
         (application as MasterApplication).service.register(
