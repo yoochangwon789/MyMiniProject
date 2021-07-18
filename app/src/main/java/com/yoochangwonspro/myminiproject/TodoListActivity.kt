@@ -38,7 +38,12 @@ class TodoListActivity : AppCompatActivity() {
             toggleButton = {
                 model.selectTodoList(it)
                 binding.todolistRecyclerView.adapter?.notifyDataSetChanged()
-            })
+            },
+            deleteButton = {
+                model.deleteTodoList(it)
+                binding.todolistRecyclerView.adapter?.notifyDataSetChanged()
+            }
+        )
         binding.todolistRecyclerView.apply {
             this.adapter = adapter
             layoutManager = LinearLayoutManager(this@TodoListActivity)
@@ -55,7 +60,8 @@ data class TodoList(val text: String, var isDone: Boolean = false)
 
 class TodoListAdapter(
     private val dataSet: ArrayList<TodoList>,
-    private val toggleButton: (todo: TodoList) -> Unit
+    private val toggleButton: (todo: TodoList) -> Unit,
+    private val deleteButton: (todo: TodoList) -> Unit
 ) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
     class ViewHolder(val itemViewBinding: TodolistItemViewBinding) :
@@ -87,6 +93,10 @@ class TodoListAdapter(
         viewHolder.itemViewBinding.root.setOnClickListener {
             toggleButton(todo)
         }
+
+        viewHolder.itemViewBinding.todolistItemDeleteView.setOnClickListener {
+            deleteButton(todo)
+        }
     }
 
     override fun getItemCount() = dataSet.size
@@ -102,5 +112,9 @@ class TodoListViewModel : ViewModel() {
 
     fun selectTodoList(todoList: TodoList) {
         todoList.isDone = !todoList.isDone
+    }
+
+    fun deleteTodoList(todoList: TodoList) {
+        todoListData.remove(todoList)
     }
 }
