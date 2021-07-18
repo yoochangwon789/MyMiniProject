@@ -20,5 +20,11 @@ class OutStagramLoginActivity : AppCompatActivity() {
                 Intent(this, MainActivity::class.java)
             )
         }
+
+        binding.outStagramSignupBtn.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramSignupActivity::class.java)
+            )
+        }
     }
 }
