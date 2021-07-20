@@ -170,6 +170,10 @@ class TodoListViewModel : ViewModel() {
     val todoListData = ArrayList<TodoList>()
 
     init {
+        fetchData()
+    }
+
+    fun fetchData() {
         db.collection("todos")
             .get()
             .addOnSuccessListener { result ->
