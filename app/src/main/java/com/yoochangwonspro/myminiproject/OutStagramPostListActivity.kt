@@ -38,6 +38,18 @@ class OutStagramPostListActivity : AppCompatActivity() {
             )
         }
 
+        binding.postMyPostView.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramMyPostActivity::class.java)
+            )
+        }
+
+        binding.postUserInfoView.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramUserInfoActivity::class.java)
+            )
+        }
+
         (application as MasterApplication).service.getAllPosts().enqueue(
             object : Callback<ArrayList<Post>> {
                 override fun onResponse(
