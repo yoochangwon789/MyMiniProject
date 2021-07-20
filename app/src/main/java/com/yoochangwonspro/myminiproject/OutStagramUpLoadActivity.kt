@@ -53,6 +53,12 @@ class OutStagramUpLoadActivity : AppCompatActivity() {
                 Intent(this, OutStagramMyPostActivity::class.java)
             )
         }
+        
+        binding.uploadUserInfoView.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramUserInfoActivity::class.java)
+            )
+        }
     }
 
     fun getPicture() {
