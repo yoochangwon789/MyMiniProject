@@ -3,6 +3,7 @@ package com.yoochangwonspro.myminiproject
 import android.app.Activity
 import android.content.Intent
 import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -51,6 +52,12 @@ class SongListActivity : AppCompatActivity() {
             })
     }
 
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+    }
+
     inner class SongListAdapter(
         private val dataSet: ArrayList<Song>,
         private val activity: Activity
@@ -76,7 +83,11 @@ class SongListActivity : AppCompatActivity() {
                 val path = dataSet[position].song
 
                 try {
-
+                    mediaPlayer?.stop()
+                    mediaPlayer?.release()
+                    mediaPlayer = null
+                    mediaPlayer = MediaPlayer.create(activity, Uri.parse(path))
+                    mediaPlayer?.start()
                 } catch (e: Exception) {
                     Log.d("eee" , "e : $e")
                 }
