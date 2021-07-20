@@ -76,6 +76,12 @@ class MyTubeListAdapter(
         Glide.with(activity)
             .load(dataSet[position].thumbnail)
             .into(viewHolder.itemViewBinding.myTubeItemThumbnail)
+
+        viewHolder.itemViewBinding.myTubeItemThumbnail.setOnClickListener {
+            val intent = Intent(activity, MyTubeVideoActivity::class.java)
+            intent.putExtra("video_url", dataSet[position].video)
+            activity.startActivity(intent)
+        }
     }
 
     override fun getItemCount() = dataSet.size
