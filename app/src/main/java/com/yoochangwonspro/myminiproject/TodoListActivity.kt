@@ -174,22 +174,25 @@ class TodoListViewModel : ViewModel() {
     }
 
     fun fetchData() {
-        db.collection("todos")
-            .get()
-            .addOnSuccessListener { result ->
-                todoListData.clear()
-                for (document in result) {
-                    val todo = TodoList(
-                        document.data.get("text") as String,
-                        document.data.get("isDone") as Boolean
-                    )
-                    todoListData.add(todo)
+        val user = FirebaseAuth.getInstance().currentUser
+        user?.let {
+            db.collection(user.uid)
+                .get()
+                .addOnSuccessListener { result ->
+                    todoListData.clear()
+                    for (document in result) {
+                        val todo = TodoList(
+                            document.data.get("text") as String,
+                            document.data.get("isDone") as Boolean
+                        )
+                        todoListData.add(todo)
+                    }
+                    liveData.value = todoListData
                 }
-                liveData.value = todoListData
-            }
-            .addOnFailureListener { exception ->
-                Log.d( "Error getting documents.", "exception : $exception")
-            }
+                .addOnFailureListener { exception ->
+                    Log.d( "Error getting documents.", "exception : $exception")
+                }
+        }
     }
 
     fun addTodoList(todoList: TodoList) {
