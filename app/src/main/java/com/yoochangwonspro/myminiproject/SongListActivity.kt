@@ -2,6 +2,7 @@ package com.yoochangwonspro.myminiproject
 
 import android.app.Activity
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import retrofit2.Response
 class SongListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySongListBinding
+    var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
