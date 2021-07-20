@@ -83,7 +83,7 @@ class OutStagramUpLoadActivity : AppCompatActivity() {
                         val post = response.body()
                         finish()
                         startActivity(
-                            Intent(this@OutStagramUpLoadActivity,)
+                            Intent(this@OutStagramUpLoadActivity, OutStagramMyPostActivity::class.java)
                         )
                     }
                 }

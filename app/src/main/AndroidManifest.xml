@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMiniProject">
-        <activity android:name=".OutStagramUpLoadActivity"></activity>
+        <activity android:name=".OutStagramMyPostActivity"></activity>
+        <activity android:name=".OutStagramUpLoadActivity" />
         <activity android:name=".OutStagramPostListActivity" />
         <activity android:name=".OutStagramLoginActivity" />
         <activity android:name=".OutStagramSignupActivity" />
