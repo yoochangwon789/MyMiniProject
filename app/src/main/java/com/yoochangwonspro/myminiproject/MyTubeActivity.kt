@@ -1,6 +1,7 @@
 package com.yoochangwonspro.myminiproject
 
 import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,6 +21,14 @@ class MyTubeActivity : AppCompatActivity() {
         binding = ActivityMyTubeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        binding.myTubeHomeBtn.setOnClickListener {
+            startActivity(
+                Intent(this, MainActivity::class.java)
+            )
+        }
+
+
     }
 }
 
