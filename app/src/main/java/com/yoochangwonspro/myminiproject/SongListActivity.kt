@@ -5,6 +5,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.yoochangwonspro.myminiproject.databinding.SongListItemViewBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 
 class SongListActivity : AppCompatActivity() {
 
@@ -48,29 +50,39 @@ class SongListActivity : AppCompatActivity() {
                 }
             })
     }
-}
 
-class SongListAdapter(
-    private val dataSet: ArrayList<Song>,
-    private val activity: Activity
-) : RecyclerView.Adapter<SongListAdapter.ViewHolder>() {
+    inner class SongListAdapter(
+        private val dataSet: ArrayList<Song>,
+        private val activity: Activity
+    ) : RecyclerView.Adapter<SongListAdapter.ViewHolder>() {
 
-    class ViewHolder(val itemViewBinding: SongListItemViewBinding) :
-        RecyclerView.ViewHolder(itemViewBinding.root) {}
+        inner class ViewHolder(val itemViewBinding: SongListItemViewBinding) :
+            RecyclerView.ViewHolder(itemViewBinding.root) {}
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.song_list_item_view, viewGroup, false)
+        override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(viewGroup.context)
+                .inflate(R.layout.song_list_item_view, viewGroup, false)
 
-        return ViewHolder(SongListItemViewBinding.bind(view))
+            return ViewHolder(SongListItemViewBinding.bind(view))
+        }
+
+        override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+            viewHolder.itemViewBinding.songTitle.text = dataSet[position].title
+            Glide.with(activity)
+                .load(dataSet[position].thumbnail)
+                .into(viewHolder.itemViewBinding.songImg)
+
+            viewHolder.itemViewBinding.songPlay.setOnClickListener {
+                val path = dataSet[position].song
+
+                try {
+
+                } catch (e: Exception) {
+                    Log.d("eee" , "e : $e")
+                }
+            }
+        }
+
+        override fun getItemCount() = dataSet.size
     }
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemViewBinding.songTitle.text = dataSet[position].title
-        Glide.with(activity)
-            .load(dataSet[position].thumbnail)
-            .into(viewHolder.itemViewBinding.songImg)
-    }
-
-    override fun getItemCount() = dataSet.size
 }
