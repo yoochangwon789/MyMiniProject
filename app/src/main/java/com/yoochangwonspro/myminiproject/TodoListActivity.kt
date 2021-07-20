@@ -1,10 +1,12 @@
 package com.yoochangwonspro.myminiproject
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Paint
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.viewModels
@@ -160,13 +162,30 @@ class TodoListAdapter(
     override fun getItemCount() = dataSet.size
 }
 
+@SuppressLint("LongLogTag")
 class TodoListViewModel : ViewModel() {
 
     val db = Firebase.firestore
     val liveData = MutableLiveData<ArrayList<TodoList>>()
     val todoListData = ArrayList<TodoList>()
 
-
+    init {
+        db.collection("todos")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val todo = TodoList(
+                        document.data.get("text") as String,
+                        document.data.get("isDone") as Boolean
+                    )
+                    todoListData.add(todo)
+                }
+                liveData.value = todoListData
+            }
+            .addOnFailureListener { exception ->
+                Log.d( "Error getting documents.", "exception : $exception")
+            }
+    }
 
     fun addTodoList(todoList: TodoList) {
         todoListData.add(todoList)
