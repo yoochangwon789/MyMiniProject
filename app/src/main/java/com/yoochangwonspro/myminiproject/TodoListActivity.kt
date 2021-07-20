@@ -32,19 +32,7 @@ class TodoListActivity : AppCompatActivity() {
 
         // 로그인이 되어있지 않을 때
         if (FirebaseAuth.getInstance().currentUser == null) {
-            val signInLauncher = registerForActivityResult(
-                FirebaseAuthUIActivityResultContract()
-            ) { res ->
-                this.onSignInResult(res)
-            }
-
-            val providers = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build())
-
-            val signInIntent = AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .build()
-            signInLauncher.launch(signInIntent)
+            login()
         }
 
         val model: TodoListViewModel by viewModels()
@@ -89,11 +77,27 @@ class TodoListActivity : AppCompatActivity() {
         }
     }
 
+    fun login() {
+        val signInLauncher = registerForActivityResult(
+            FirebaseAuthUIActivityResultContract()
+        ) { res ->
+            this.onSignInResult(res)
+        }
+
+        val providers = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build())
+
+        val signInIntent = AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(providers)
+            .build()
+        signInLauncher.launch(signInIntent)
+    }
+
     fun logout() {
         AuthUI.getInstance()
             .signOut(this)
             .addOnCompleteListener {
-
+                login()
             }
     }
 }
