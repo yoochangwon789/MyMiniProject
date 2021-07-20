@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.yoochangwonspro.myminiproject.databinding.ActivityTodoListBinding
 import com.yoochangwonspro.myminiproject.databinding.TodolistItemViewBinding
 
@@ -27,6 +28,12 @@ class TodoListActivity : AppCompatActivity() {
         binding = ActivityTodoListBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        private val signInLauncher = registerForActivityResult(
+            FirebaseAuthUIActivityResultContract()
+        ) { res ->
+            this.onSignInResult(res)
+        }
 
         val providers = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build())
 
