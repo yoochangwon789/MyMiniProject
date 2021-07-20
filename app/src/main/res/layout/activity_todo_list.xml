@@ -30,6 +30,17 @@
             android:layout_height="wrap_content"
             android:gravity="right">
 
+            <TextView
+                android:id="@+id/todolist_logout_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:text="로그아웃"
+                android:textColor="#ffffff"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
             <ImageView
                 android:id="@+id/todolist_main_btn"
                 android:layout_width="50dp"
