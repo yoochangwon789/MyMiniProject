@@ -41,4 +41,16 @@ class OutStagramUpLoadActivity : AppCompatActivity() {
             val uri: Uri = intent!!.data!!
         }
     }
+
+    fun getImageFilePath(contentUri: Uri): String {
+        var columnIndex = 0
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = contentResolver.query(contentUri, projection, null, null, null)
+
+        if (cursor!!.moveToFirst()) {
+            columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        }
+
+        return cursor.getString(columnIndex)
+    }
 }
