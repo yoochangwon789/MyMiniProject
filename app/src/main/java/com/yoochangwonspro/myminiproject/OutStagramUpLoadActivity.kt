@@ -26,6 +26,10 @@ class OutStagramUpLoadActivity : AppCompatActivity() {
                 Intent(this, MainActivity::class.java)
             )
         }
+
+        binding.uploadPictureSearchBtn.setOnClickListener {
+            getPicture()
+        }
     }
 
     fun getPicture() {
@@ -36,7 +40,9 @@ class OutStagramUpLoadActivity : AppCompatActivity() {
         startForResult.launch(intent)
     }
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private val startForResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val intent = result.data
             val uri: Uri = intent!!.data!!
