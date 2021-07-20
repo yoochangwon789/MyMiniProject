@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.activity.viewModels
@@ -63,6 +64,13 @@ class TodoListActivity : AppCompatActivity() {
         model.liveData.observe(this, Observer {
             (binding.todolistRecyclerView.adapter as TodoListAdapter).setData(it)
         })
+        
+        binding.todolistLogoutBtn.setOnClickListener {
+            startActivity(
+                Intent(this, MainActivity::class.java)
+            )
+            logout()
+        }
     }
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
@@ -96,9 +104,7 @@ class TodoListActivity : AppCompatActivity() {
     fun logout() {
         AuthUI.getInstance()
             .signOut(this)
-            .addOnCompleteListener {
-                login()
-            }
+            .addOnCompleteListener {}
     }
 }
 
