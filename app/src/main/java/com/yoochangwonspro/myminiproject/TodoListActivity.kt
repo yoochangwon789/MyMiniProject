@@ -17,6 +17,8 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.yoochangwonspro.myminiproject.databinding.ActivityTodoListBinding
 import com.yoochangwonspro.myminiproject.databinding.TodolistItemViewBinding
 
@@ -160,8 +162,11 @@ class TodoListAdapter(
 
 class TodoListViewModel : ViewModel() {
 
+    val db = Firebase.firestore
     val liveData = MutableLiveData<ArrayList<TodoList>>()
     val todoListData = ArrayList<TodoList>()
+
+
 
     fun addTodoList(todoList: TodoList) {
         todoListData.add(todoList)
