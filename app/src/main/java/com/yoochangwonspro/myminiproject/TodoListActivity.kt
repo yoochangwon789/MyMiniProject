@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
+import com.google.firebase.auth.FirebaseAuth
 import com.yoochangwonspro.myminiproject.databinding.ActivityTodoListBinding
 import com.yoochangwonspro.myminiproject.databinding.TodolistItemViewBinding
 
@@ -29,7 +31,7 @@ class TodoListActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        private val signInLauncher = registerForActivityResult(
+        val signInLauncher = registerForActivityResult(
             FirebaseAuthUIActivityResultContract()
         ) { res ->
             this.onSignInResult(res)
@@ -71,6 +73,20 @@ class TodoListActivity : AppCompatActivity() {
         model.liveData.observe(this, Observer {
             (binding.todolistRecyclerView.adapter as TodoListAdapter).setData(it)
         })
+    }
+
+    private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
+        val response = result.idpResponse
+        if (result.resultCode == RESULT_OK) {
+            // Successfully signed in
+            val user = FirebaseAuth.getInstance().currentUser
+            // ...
+        } else {
+            // Sign in failed. If response is null the user canceled the
+            // sign-in flow using the back button. Otherwise check
+            // response.getError().getErrorCode() and handle the error.
+            // ...
+        }
     }
 }
 
