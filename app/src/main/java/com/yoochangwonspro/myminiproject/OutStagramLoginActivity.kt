@@ -1,5 +1,6 @@
 package com.yoochangwonspro.myminiproject
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -56,4 +57,10 @@ class OutStagramLoginActivity : AppCompatActivity() {
         }
     }
 
+    fun setUserId(userId: String) {
+        val sp = getSharedPreferences("userId", Context.MODE_PRIVATE)
+        val editor = sp.edit()
+        editor.putString("userId", userId)
+        editor.apply()
+    }
 }
