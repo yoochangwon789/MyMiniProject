@@ -27,6 +27,7 @@ import com.yoochangwonspro.myminiproject.databinding.TodolistItemViewBinding
 class TodoListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTodoListBinding
+    val model: TodoListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,6 @@ class TodoListActivity : AppCompatActivity() {
             login()
         }
 
-        val model: TodoListViewModel by viewModels()
 
         binding.todolistMainBtn.setOnClickListener {
             startActivity(
@@ -81,7 +81,7 @@ class TodoListActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             // Successfully signed in
             val user = FirebaseAuth.getInstance().currentUser
-            // ...
+            model.fetchData()
         } else {
             // 로그인 실패
             finish()
