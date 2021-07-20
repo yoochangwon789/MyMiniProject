@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.yoochangwonspro.myminiproject.databinding.ActivityOutStagramUserInfoBinding
+import kotlin.math.log
 
 class OutStagramUserInfoActivity : AppCompatActivity() {
 
@@ -43,7 +44,13 @@ class OutStagramUserInfoActivity : AppCompatActivity() {
         binding.userInfoUserId.text = getUserId()
 
         binding.userInfoLogout.setOnClickListener {
+            logout()
 
+            (application as MasterApplication).createRetrofit()
+            finish()
+            startActivity(
+                Intent(this, OutStagramLoginActivity::class.java)
+            )
         }
     }
 
