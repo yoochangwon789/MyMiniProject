@@ -6,7 +6,6 @@ import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
@@ -88,6 +87,14 @@ class TodoListActivity : AppCompatActivity() {
             // 로그인 실패
             finish()
         }
+    }
+
+    fun logout() {
+        AuthUI.getInstance()
+            .signOut(this)
+            .addOnCompleteListener {
+
+            }
     }
 }
 
