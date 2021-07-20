@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import com.yoochangwonspro.myminiproject.databinding.ActivityOutStagramUpLoadBinding
 
@@ -39,6 +40,8 @@ class OutStagramUpLoadActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val intent = result.data
             val uri: Uri = intent!!.data!!
+            filePath = getImageFilePath(uri)
+            Log.d("pathh", "path : $filePath")
         }
     }
 
