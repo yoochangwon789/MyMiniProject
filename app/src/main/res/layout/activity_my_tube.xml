@@ -42,6 +42,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_tube_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        tools:listitem="@layout/my_tube_item_view" />
 
 </LinearLayout>
