@@ -1,5 +1,6 @@
 package com.yoochangwonspro.myminiproject
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -38,5 +39,12 @@ class OutStagramUserInfoActivity : AppCompatActivity() {
                 Intent(this, OutStagramMyPostActivity::class.java)
             )
         }
+    }
+
+    fun getUserId(): String? {
+        val sp = getSharedPreferences("userId", Context.MODE_PRIVATE)
+        val userId = sp.getString("userId", "null")
+
+        return userId
     }
 }
