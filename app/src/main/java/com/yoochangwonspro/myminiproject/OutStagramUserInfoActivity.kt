@@ -41,6 +41,10 @@ class OutStagramUserInfoActivity : AppCompatActivity() {
         }
         
         binding.userInfoUserId.text = getUserId()
+
+        binding.userInfoLogout.setOnClickListener {
+
+        }
     }
 
     fun getUserId(): String? {
@@ -48,5 +52,12 @@ class OutStagramUserInfoActivity : AppCompatActivity() {
         val userId = sp.getString("userId", "null")
 
         return userId
+    }
+
+    fun logout() {
+        val sp = getSharedPreferences("login_sp", Context.MODE_PRIVATE)
+        val editor = sp.edit()
+        editor.putString("login_sp", "null")
+        editor.apply()
     }
 }
