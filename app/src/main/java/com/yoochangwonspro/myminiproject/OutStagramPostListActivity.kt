@@ -32,6 +32,12 @@ class OutStagramPostListActivity : AppCompatActivity() {
             )
         }
 
+        binding.postUpLoadView.setOnClickListener {
+            startActivity(
+                Intent(this, OutStagramUpLoadActivity::class.java)
+            )
+        }
+
         (application as MasterApplication).service.getAllPosts().enqueue(
             object : Callback<ArrayList<Post>> {
                 override fun onResponse(
