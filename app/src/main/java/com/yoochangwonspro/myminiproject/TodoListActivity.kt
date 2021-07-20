@@ -177,6 +177,7 @@ class TodoListViewModel : ViewModel() {
         db.collection("todos")
             .get()
             .addOnSuccessListener { result ->
+                todoListData.clear()
                 for (document in result) {
                     val todo = TodoList(
                         document.data.get("text") as String,
