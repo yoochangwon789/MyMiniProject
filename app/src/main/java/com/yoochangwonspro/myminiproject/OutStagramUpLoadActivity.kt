@@ -37,6 +37,10 @@ class OutStagramUpLoadActivity : AppCompatActivity() {
         binding.uploadPictureSearchBtn.setOnClickListener {
             getPicture()
         }
+        
+        binding.uploadBtn.setOnClickListener {
+            uploadPost()
+        }
     }
 
     fun getPicture() {
