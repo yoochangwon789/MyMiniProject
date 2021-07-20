@@ -6,10 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yoochangwonspro.myminiproject.databinding.ActivityOutStagramMyPostBinding
 import com.yoochangwonspro.myminiproject.databinding.PostListItemViewBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class OutStagramMyPostActivity : AppCompatActivity() {
 
@@ -45,7 +49,25 @@ class OutStagramMyPostActivity : AppCompatActivity() {
             )
         }
 
+        (application as MasterApplication).service.getUserPostList().enqueue(
+            object : Callback<ArrayList<Post>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Post>>,
+                    response: Response<ArrayList<Post>>
+                ) {
+                    if (response.isSuccessful) {
+                        val userPost = response.body()
 
+                        binding.myPostListRecyclerView.apply {
+                            adapter = MyPostListAdapter(userPost!!, this@OutStagramMyPostActivity)
+                            layoutManager = LinearLayoutManager(this@OutStagramMyPostActivity)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
+                }
+            })
     }
 }
 
