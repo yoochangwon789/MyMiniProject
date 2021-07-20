@@ -92,4 +92,8 @@ class OutStagramUpLoadActivity : AppCompatActivity() {
                 }
             })
     }
+
+    fun getContent(): String {
+        return binding.uploadContentEditText.text.toString()
+    }
 }
