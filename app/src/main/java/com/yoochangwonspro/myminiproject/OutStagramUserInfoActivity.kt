@@ -39,6 +39,8 @@ class OutStagramUserInfoActivity : AppCompatActivity() {
                 Intent(this, OutStagramMyPostActivity::class.java)
             )
         }
+        
+        binding.userInfoUserId.text = getUserId()
     }
 
     fun getUserId(): String? {

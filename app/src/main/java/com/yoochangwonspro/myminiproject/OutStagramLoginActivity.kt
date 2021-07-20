@@ -39,9 +39,6 @@ class OutStagramLoginActivity : AppCompatActivity() {
             ).enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
-                        val userId = response.body()
-                        setUserId(userId!!.userName!!)
-
                         Toast.makeText(
                             this@OutStagramLoginActivity,
                             "로그인을 성공했습니다.",
@@ -57,6 +54,8 @@ class OutStagramLoginActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                 }
             })
+
+            setUserId(binding.outStagramIdText.text.toString())
         }
     }
 
