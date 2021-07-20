@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yoochangwonspro.myminiproject.databinding.ActivityMyTubeBinding
 import com.yoochangwonspro.myminiproject.databinding.MyTubeItemViewBinding
 import com.yoochangwonspro.myminiproject.databinding.PostListItemViewBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MyTubeActivity : AppCompatActivity() {
 
@@ -28,7 +32,26 @@ class MyTubeActivity : AppCompatActivity() {
             )
         }
 
+        (application as MasterApplication).service.getYoutubeList().enqueue(
+            object : Callback<ArrayList<YouTube>> {
+                override fun onResponse(
+                    call: Call<ArrayList<YouTube>>,
+                    response: Response<ArrayList<YouTube>>
+                ) {
+                    if (response.isSuccessful) {
+                        val myTube = response.body()
 
+                        binding.myTubeRecyclerView.apply {
+                            adapter = MyTubeListAdapter(myTube!!, this@MyTubeActivity)
+                            layoutManager = LinearLayoutManager(this@MyTubeActivity)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<YouTube>>, t: Throwable) {
+                }
+            }
+        )
     }
 }
 
