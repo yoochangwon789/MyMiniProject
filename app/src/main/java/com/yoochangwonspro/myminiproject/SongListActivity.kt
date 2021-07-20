@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yoochangwonspro.myminiproject.databinding.ActivitySongListBinding
 import com.yoochangwonspro.myminiproject.databinding.MyTubeItemViewBinding
 import com.yoochangwonspro.myminiproject.databinding.SongListItemViewBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SongListActivity : AppCompatActivity() {
 
@@ -21,6 +25,26 @@ class SongListActivity : AppCompatActivity() {
         binding = ActivitySongListBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        (application as MasterApplication).service.getSongList()
+            .enqueue(object : Callback<ArrayList<Song>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Song>>,
+                    response: Response<ArrayList<Song>>
+                ) {
+                    if (response.isSuccessful) {
+                        val songList = response.body()
+
+                        binding.songListRecyclerView.apply {
+                            adapter = SongListAdapter(songList!!, this@SongListActivity)
+                            layoutManager = LinearLayoutManager(this@SongListActivity)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Song>>, t: Throwable) {
+                }
+            })
     }
 }
 
