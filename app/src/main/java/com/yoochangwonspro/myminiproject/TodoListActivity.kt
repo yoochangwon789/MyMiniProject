@@ -37,6 +37,12 @@ class TodoListActivity : AppCompatActivity() {
 
         val providers = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build())
 
+        val signInIntent = AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(providers)
+            .build()
+        signInLauncher.launch(signInIntent)
+
         val model: TodoListViewModel by viewModels()
 
         binding.todolistMainBtn.setOnClickListener {
