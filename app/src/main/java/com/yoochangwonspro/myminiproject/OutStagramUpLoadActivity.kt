@@ -9,6 +9,13 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import com.yoochangwonspro.myminiproject.databinding.ActivityOutStagramUpLoadBinding
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
 
 class OutStagramUpLoadActivity : AppCompatActivity() {
 
@@ -61,5 +68,28 @@ class OutStagramUpLoadActivity : AppCompatActivity() {
         }
 
         return cursor.getString(columnIndex)
+    }
+
+    fun uploadPost() {
+        val file = File(filePath)
+        val fileRequestBody = RequestBody.create(MediaType.parse("image/*"), file)
+        val part = MultipartBody.Part.createFormData("image", file.name, fileRequestBody)
+        val content = RequestBody.create(MediaType.parse("text/plain"), getContent())
+
+        (application as MasterApplication).service.upLoadPost(part, content)
+            .enqueue(object : Callback<Post> {
+                override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                    if (response.isSuccessful) {
+                        val post = response.body()
+                        finish()
+                        startActivity(
+                            Intent(this@OutStagramUpLoadActivity,)
+                        )
+                    }
+                }
+
+                override fun onFailure(call: Call<Post>, t: Throwable) {
+                }
+            })
     }
 }
