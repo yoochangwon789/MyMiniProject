@@ -12,6 +12,7 @@ import com.yoochangwonspro.myminiproject.databinding.ActivityOutStagramUpLoadBin
 class OutStagramUpLoadActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOutStagramUpLoadBinding
+    lateinit var filePath: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
