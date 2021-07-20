@@ -85,6 +85,7 @@ class OutStagramUpLoadActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<Post>, response: Response<Post>) {
                     if (response.isSuccessful) {
                         val post = response.body()
+                        Log.d("pathh", post!!.content!!)
                         finish()
                         startActivity(
                             Intent(this@OutStagramUpLoadActivity, OutStagramMyPostActivity::class.java)
