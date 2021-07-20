@@ -1,8 +1,12 @@
 package com.yoochangwonspro.myminiproject
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import androidx.activity.result.contract.ActivityResultContracts
 import com.yoochangwonspro.myminiproject.databinding.ActivityOutStagramUpLoadBinding
 
 class OutStagramUpLoadActivity : AppCompatActivity() {
@@ -19,6 +23,21 @@ class OutStagramUpLoadActivity : AppCompatActivity() {
             startActivity(
                 Intent(this, MainActivity::class.java)
             )
+        }
+    }
+
+    fun getPicture() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        intent.type = "image/*"
+
+        startForResult.launch(intent)
+    }
+
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+            val uri: Uri = intent!!.data!!
         }
     }
 }
