@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMiniProject">
-        <activity android:name=".MyTubeVideoActivity"></activity>
+        <activity android:name=".SongListActivity"></activity>
+        <activity android:name=".MyTubeVideoActivity" />
         <activity android:name=".MyTubeActivity" />
         <activity android:name=".OutStagramUserInfoActivity" />
         <activity android:name=".OutStagramMyPostActivity" />
