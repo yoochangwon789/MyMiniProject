@@ -31,19 +31,22 @@ class TodoListActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val signInLauncher = registerForActivityResult(
-            FirebaseAuthUIActivityResultContract()
-        ) { res ->
-            this.onSignInResult(res)
+        // 로그인이 되어있지 않을 때
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            val signInLauncher = registerForActivityResult(
+                FirebaseAuthUIActivityResultContract()
+            ) { res ->
+                this.onSignInResult(res)
+            }
+
+            val providers = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build())
+
+            val signInIntent = AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .build()
+            signInLauncher.launch(signInIntent)
         }
-
-        val providers = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build())
-
-        val signInIntent = AuthUI.getInstance()
-            .createSignInIntentBuilder()
-            .setAvailableProviders(providers)
-            .build()
-        signInLauncher.launch(signInIntent)
 
         val model: TodoListViewModel by viewModels()
 
@@ -82,10 +85,8 @@ class TodoListActivity : AppCompatActivity() {
             val user = FirebaseAuth.getInstance().currentUser
             // ...
         } else {
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-            // ...
+            // 로그인 실패
+            finish()
         }
     }
 }
