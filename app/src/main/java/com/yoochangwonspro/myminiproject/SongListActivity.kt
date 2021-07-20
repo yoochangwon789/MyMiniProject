@@ -31,6 +31,12 @@ class SongListActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        binding.songListHomeBtn.setOnClickListener {
+            startActivity(
+                Intent(this, MainActivity::class.java)
+            )
+        }
+
         (application as MasterApplication).service.getSongList()
             .enqueue(object : Callback<ArrayList<Song>> {
                 override fun onResponse(
