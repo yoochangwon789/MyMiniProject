@@ -194,8 +194,10 @@ class TodoListViewModel : ViewModel() {
     }
 
     fun addTodoList(todoList: TodoList) {
-        todoListData.add(todoList)
-        liveData.value = todoListData
+        FirebaseAuth.getInstance().currentUser?.let { user ->
+            db.collection(user.uid)
+                .add(todoList)
+        }
     }
 
     fun selectTodoList(todoList: TodoList) {
