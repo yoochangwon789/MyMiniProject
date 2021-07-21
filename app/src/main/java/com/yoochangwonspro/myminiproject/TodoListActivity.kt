@@ -67,7 +67,7 @@ class TodoListActivity : AppCompatActivity() {
         model.liveData.observe(this, Observer {
             (binding.todolistRecyclerView.adapter as TodoListAdapter).setData(it)
         })
-        
+
         binding.todolistLogoutBtn.setOnClickListener {
             startActivity(
                 Intent(this, MainActivity::class.java)
@@ -144,7 +144,6 @@ class TodoListAdapter(
                 setTypeface(null, Typeface.NORMAL)
             }
         }
-
         viewHolder.itemViewBinding.root.setOnClickListener {
             toggleButton(todo)
         }
@@ -154,7 +153,7 @@ class TodoListAdapter(
         }
     }
 
-    fun setData(newData : ArrayList<TodoList>) {
+    fun setData(newData: ArrayList<TodoList>) {
         dataSet = newData
         notifyDataSetChanged()
     }
@@ -177,20 +176,19 @@ class TodoListViewModel : ViewModel() {
         val user = FirebaseAuth.getInstance().currentUser
         user?.let {
             db.collection(user.uid)
-                .get()
-                .addOnSuccessListener { result ->
+                .addSnapshotListener { value, error ->
+                    if (error != null) {
+                        return@addSnapshotListener
+                    }
                     todoListData.clear()
-                    for (document in result) {
+                    for (document in value!!) {
                         val todo = TodoList(
-                            document.data.get("text") as String,
-                            document.data.get("isDone") as Boolean
+                            document.getString("text") ?: "",
+                            document.getBoolean("isDone") ?: false
                         )
                         todoListData.add(todo)
                     }
                     liveData.value = todoListData
-                }
-                .addOnFailureListener { exception ->
-                    Log.d( "Error getting documents.", "exception : $exception")
                 }
         }
     }
