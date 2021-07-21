@@ -202,7 +202,8 @@ class TodoListViewModel : ViewModel() {
     }
 
     fun deleteTodoList(todoList: DocumentSnapshot) {
-//        todoListData.remove(todoList)
-//        liveData.value = todoListData
+        FirebaseAuth.getInstance().currentUser?.let { user ->
+            db.collection(user.uid).document(todoList.id).delete()
+        }
     }
 }
