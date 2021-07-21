@@ -19,6 +19,8 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.yoochangwonspro.myminiproject.databinding.ActivityTodoListBinding
@@ -49,7 +51,7 @@ class TodoListActivity : AppCompatActivity() {
 
         binding.todolistRecyclerView.apply {
             adapter = TodoListAdapter(
-                model.todoListData,
+                emptyList(),
                 toggleButton = {
                     model.selectTodoList(it)
                 },
@@ -114,9 +116,9 @@ class TodoListActivity : AppCompatActivity() {
 data class TodoList(val text: String, var isDone: Boolean = false)
 
 class TodoListAdapter(
-    private var dataSet: ArrayList<TodoList>,
-    private val toggleButton: (todo: TodoList) -> Unit,
-    private val deleteButton: (todo: TodoList) -> Unit
+    private var dataSet: List<DocumentSnapshot>,
+    private val toggleButton: (todo: DocumentSnapshot) -> Unit,
+    private val deleteButton: (todo: DocumentSnapshot) -> Unit
 ) : RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
     class ViewHolder(val itemViewBinding: TodolistItemViewBinding) :
@@ -131,9 +133,9 @@ class TodoListAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val todo = dataSet[position]
-        viewHolder.itemViewBinding.todolistItemTextView.text = todo.text
+        viewHolder.itemViewBinding.todolistItemTextView.text = todo.getString("text") ?: ""
 
-        if (todo.isDone) {
+        if ((todo.getBoolean("isDone") ?: false) == true) {
             viewHolder.itemViewBinding.todolistItemTextView.apply {
                 paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 setTypeface(null, Typeface.ITALIC)
@@ -153,7 +155,7 @@ class TodoListAdapter(
         }
     }
 
-    fun setData(newData: ArrayList<TodoList>) {
+    fun setData(newData: List<DocumentSnapshot>) {
         dataSet = newData
         notifyDataSetChanged()
     }
@@ -165,8 +167,7 @@ class TodoListAdapter(
 class TodoListViewModel : ViewModel() {
 
     val db = Firebase.firestore
-    val liveData = MutableLiveData<ArrayList<TodoList>>()
-    val todoListData = ArrayList<TodoList>()
+    val liveData = MutableLiveData<List<DocumentSnapshot>>()
 
     init {
         fetchData()
@@ -180,15 +181,10 @@ class TodoListViewModel : ViewModel() {
                     if (error != null) {
                         return@addSnapshotListener
                     }
-                    todoListData.clear()
-                    for (document in value!!) {
-                        val todo = TodoList(
-                            document.getString("text") ?: "",
-                            document.getBoolean("isDone") ?: false
-                        )
-                        todoListData.add(todo)
+
+                    value?.let {
+                        liveData.value = value.documents
                     }
-                    liveData.value = todoListData
                 }
         }
     }
@@ -200,13 +196,13 @@ class TodoListViewModel : ViewModel() {
         }
     }
 
-    fun selectTodoList(todoList: TodoList) {
-        todoList.isDone = !todoList.isDone
-        liveData.value = todoListData
+    fun selectTodoList(todoList: DocumentSnapshot) {
+//        todoList.isDone = !todoList.isDone
+//        liveData.value = todoListData
     }
 
-    fun deleteTodoList(todoList: TodoList) {
-        todoListData.remove(todoList)
-        liveData.value = todoListData
+    fun deleteTodoList(todoList: DocumentSnapshot) {
+//        todoListData.remove(todoList)
+//        liveData.value = todoListData
     }
 }
