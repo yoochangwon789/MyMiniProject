@@ -197,8 +197,10 @@ class TodoListViewModel : ViewModel() {
     }
 
     fun selectTodoList(todoList: DocumentSnapshot) {
-//        todoList.isDone = !todoList.isDone
-//        liveData.value = todoListData
+        FirebaseAuth.getInstance().currentUser?.let { user ->
+            val isDone = todoList.getBoolean("isDone") ?: false
+            db.collection(user.uid).document(todoList.id).update("isDone", !isDone)
+        }
     }
 
     fun deleteTodoList(todoList: DocumentSnapshot) {
